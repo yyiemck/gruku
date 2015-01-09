@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+		<title>Join Page</title>
+		<style type="text/css">
+			body {
+				margin-top: 20px;
+				margin-left: 20px;	
+			}
+			fieldset {
+				width: 400px;
+				padding : 20px;
+				align :center;
+			}
+
+			input {
+				margin-top : 20px;
+			}
+
+			form {
+				vertical-align :center;
+
+			}
+		</style>
+	</head>
+	<body> 
+		<fieldset><legend>회원가입</legend> 
+			<form action="join.php" method= "POST" onsubmit= input();>
+					<label>I D :</label>
+						<input type= "text" class="inputs" value= "" name= "user_id"/>
+					<input type= "button" name= "user_id_check" value="중복체크"/><br>
+					<label>패스워드 :</label>
+					<input type= "password" class= "inputs" value= "" name= "user_password"/><br>
+				<input type= "submit" value= "회원가입"/>
+				<input type= "button" onclick="location.href='login2.html'"value= "로그인"/>
+			</form>
+		</fieldset>
+	<script type="text/javascript">	
+		function input() {
+			if(document.getElementsByClassName('inputs')[0].value=="" || document.getElementsByClassName('inputs')[1].value=="") {
+				alert("Input all");
+				'location.replace(.join.html)';
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+		/*
+			function checkForm(form) {
+				if(theForm.user_id.value=="") {
+					alert("Enter ID");
+					theForm.user_id.focus();
+					return false;
+				}
+				else if(theForm.user_password.value=="" {
+					alert("Enter password");
+					theForm.password.focus();
+					return false;	
+				}
+				else if(theForm.user_name.value=="" {
+					alert("Enter your name");
+					theForm.name.focus();
+					return false;
+				}
+				else if(theForm.user_email.value=="" {
+					alert("Enter your email");
+					theForm.email.focus();
+					return false;
+				}
+				else if(theForm.user_id_check.value=="" {
+					alert("Check your ID");
+					return false;
+				}
+				else return true;
+			}
+			function checkid(theForm) {
+				if(theForm.user_id.value=="" {
+					alert("Enter ID");
+						theForm.userid.focus();
+				}
+				else {
+					 theForm.user_id_check.value=1;
+ 					var checkidWin = window.open('user_checkid.php?userid='+theForm.userid.value,'','width=300, height=200');
+ 						check_win.focus();
+				}	*/	
+		</script>		
+	</body>
+ </html>
+
+
