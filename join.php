@@ -10,23 +10,40 @@
 	$conn = mysqli_connect("green.dev", "root", "rhd1901", "kong");
 	mysqli_select_db($conn,"kong");
 
-	$id_tmp = $_POST['user_id'];
-	$password_tmp = $_POST['user_password'];
-	$forMD5 = $id_tmp.$password_tmp;
-	$check = "SELECT * FROM user WHERE userid='".$id_tmp."';";
-	$check = mysqli_query($check);
-	$check = mysqli_use_result($check, 0, "userid");
-	//아이디가 있다면
-	if($id_tmp) {
+	if(isset($_POST['user_id']) && isset($_POST['user_password']) && $_POST['user_id']!="" && $_POST['user_password']!="") {
+		$id = $_POST['user_id'];
+		$password = $_POST['user_password'];
+		$forMD5 = $id.$password;	
+	}
+	else {
+		echo '<script type="text/javascript">';
+		echo 'alert("아이디나 비밀번호가 입력되지 않았습니다.");';
+		echo 'location.replace("./join.html");';
+		echo '</script>';
+		return 0;
+	}
+	$id = $_POST['user_id'];
+	$check = "SELECT * FROM user WHERE userid='$id';";
+	$check = mysqli_query($conn, $check);
+	$check = mysqli_use_result($conn);
+
+	if($id) {
 		if(!$check){
-			if($password_tmp){
+			if($password){
 			$token = md5($forMD5);
-			$setQuery= "INSERT INTO user VALUES ('$id_tmp', '$password_tmp', '$token')";
-			$setQuery = mysqli_query($setQuery);
-			$setQuery = mysqli_use_result($setQuery, 0);
+			$setQuery= "INSERT INTO user VALUES ('$id', '$password', '$token')";
+			$setQuery = mysqli_query($conn, $setQuery);
+			$setQuery = mysqli_use_result($setQuery);
 			header('Location: ./joinend.html');
 			return 0;
 			}
+		}
+		else {
+			echo '<script type="text/javascript">';
+			echo 'alert("아이디가 중복되었습니다.");';
+			echo 'location.replace("./signup.html");';
+			echo '</script>';
+			return 1;
 		}
 	}
 ?>

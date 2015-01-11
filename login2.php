@@ -16,8 +16,14 @@
 	$findid= mysqli_fetch_row($findid);
 	$findpassword=mysqli_fetch_row($findpassword);
 
-
-	if(!$findid) {
+	if($id_tmp=="" || $password_tmp=="") {
+		echo '<script type="text/javascript">';
+		echo 'alert("아이디나 비밀번호가 입력되지 않았습니다.");';
+		echo 'location.replace("./login2.html");';
+		echo '</script>';
+		return 1;
+	}
+	else if(!$findid) {
 		if(!$findpassword) {
 			echo "Your ID and password are wrong";
 		}
@@ -31,7 +37,7 @@
 		}
 		else {
 			$token= md5($userid.$password);
-			$_SESSION['userid'] = $user_id;
+			$_SESSION['userid'] = $id_tmp;
 			$_SESSION['token']= $token;
 			header('Location: ./loginsession.php');
 			return 0;

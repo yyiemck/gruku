@@ -13,15 +13,17 @@
 	$getSessionToken = $_SESSION['token'];
 	//세션에서 아이디를 가져온다.
 	$_SESSION['islogin'] = 1;
-	$user_id = $_SESSION['userid'];
+	$id = $_SESSION['userid'];
 	//*사실 아이디와 같은부분은 서버에 부담을 최소화하기위해 쿠키에 저장하는게 바람직하다.
 	
 	//데이터베이스에서 id가 가진 토큰을 가져온다.
-	$getDBToken = "SELECT token FROM user WHERE userid='$id_tmp';";
-	$getDBToken = mysqli_query($conn, $getDBToken);
-	$getDBToken = mysqli_use_result($getDBToken, 0);
-	//세션에 등록한 토큰과 데이터베이스의 토큰이 일치하면
+	$getDBToken= mysqli_query($conn, "SELECT token FROM user WHERE userid='".$id."';");
+	$getDBToken= mysqli_fetch_row($getDBToken);	
 	
+	//세션에 등록한 토큰과 데이터베이스의 토큰이 일치하면
+
+	$getDBToken = mysqli_store_result($conn);
+
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
@@ -29,7 +31,16 @@
 		<style type="text/css">
 			fieldset {
 				width: 400px;
-				padding : 20px;
+				height:200px;
+				position:absolute;
+				left :100px;
+				top:100px;
+			}
+			button {
+				position :absolute;
+				vertical-align: bottom;
+				margin-top:180px;
+				margin-left:330px;
 			}
 		</style>
 		<title>Members' page</title>
@@ -41,13 +52,13 @@
 					<?php
 						if($getDBToken == $getSessionToken && $getSessionToken){
 							//로그인 인정
-							$login = 1;
-							echo "$id_tmp 님 <br>환영합니다 <br>";
+							$islogin = 1;
+							echo "$id 님 <br>환영합니다 <br>";
 						}
 					?>
+					<button type="submit" value="logout" onclick=location.href="./logout.php">로그아웃</button><br>
 				</fieldset>
 			</p>
-			<button type="submit" value="logout" onclick=location.href="./logout.php">로그아웃</button><br>
 		</div>
 	</body>
 </html>
